@@ -11,15 +11,15 @@ namespace Go_Fish
         private string suit;
         private string rank;
         private string name;
+        public static int books = 4;
 
-        public Card(int suit, int rank)
+        private Card(int suit, int rank )        //Constructor for Card.
         {
             this.suit = SetSuit(suit);
             this.rank = SetRank(rank);
             this.name = $"{this.rank} of {this.suit}";
-            
         }
-        public string SetSuit(int suit)
+        private string SetSuit(int suit)        //Sets all suits for cards.
         {
             switch (suit)
             {
@@ -33,46 +33,45 @@ namespace Go_Fish
                     return "Clubs";
             }
         }
-        public string SetRank(int rank)
+        private string SetRank( int rank )        //Sets all ranks for cards.
         {
-            switch (rank)
+            switch(rank)
             {
-                case 0:
-                    return "Ace";
-                case 1:
-                    return "2";
-                case 2:
-                    return "3";
-                case 3:
-                    return "4";
-                case 4:
-                    return "5";
-                case 5:
-                    return "6";
-                case 6:
-                    return "7";
-                case 7:
-                    return "8";
-                case 8:
-                    return "9";
-                case 9:
-                    return "10";
-                case 10:
-                    return "Jack";
-                case 11:
-                    return "Queen";
-                default:
-                    return "King";
+            case 0:
+                return "Ace";
+            case 1:
+                return "2";
+            case 2:
+                return "3";
+            case 3:
+                return "4";
+            case 4:
+                return "5";
+            case 5:
+                return "6";
+            case 6:
+                return "7";
+            case 7:
+                return "8";
+            case 8:
+                return "9";
+            case 9:
+                return "10";
+            case 10:
+                return "Jack";
+            case 11:
+                return "Queen";
+            default:
+                return "King";
             }
         }
-
-        public static Card[] InitializeDeck()
+        public static Card[] InitializeDeck()       //Returns a 52 card Array.
         {
-            var deck = new Card[52]; //Creating 52 card deck.
+            var deck = new Card[52];
             int suit = 0;
             int rank = 0;
             int d = 0;
-            while(d < 52)  //Creating 52 card deck.
+            while(d < 52)
             {
                 while(suit < 4)
                 {

@@ -44,7 +44,7 @@
   <ItemGroup>
     <Compile Include="Card.cs" />
     <Compile Include="Player.cs" />
-    <Compile Include="MainGoFish.cs" />
+    <Compile Include="StartGame.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
