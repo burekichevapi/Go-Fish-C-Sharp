@@ -8,15 +8,15 @@ namespace Go_Fish
 {
     class Card
     {
-        private string _suit;
-        private string _rank;
-        private string _name;
+        private string suit;
+        private string rank;
+        private string name;
 
         public Card(int suit, int rank)
         {
-            _suit = SetSuit(suit);
-            _rank = SetRank(rank);
-            _name = _rank + " of " + _suit;
+            this.suit = SetSuit(suit);
+            this.rank = SetRank(rank);
+            this.name = $"{this.rank} of {this.suit}";
             
         }
         public string SetSuit(int suit)
@@ -65,9 +65,33 @@ namespace Go_Fish
                     return "King";
             }
         }
-        public string GetSuit { get { return _suit; } }
-        public string GetRank { get { return _rank; } }
-        public string GetName { get { return _name; } }
+
+        public static Card[] InitializeDeck()
+        {
+            var deck = new Card[52]; //Creating 52 card deck.
+            int suit = 0;
+            int rank = 0;
+            int d = 0;
+            while(d < 52)  //Creating 52 card deck.
+            {
+                while(suit < 4)
+                {
+                    while(rank < 13)
+                    {
+                        deck[d] = new Card(suit, rank);
+                        d++;
+                        rank++;
+                    }
+                    rank = 0;
+                    suit++;
+                }
+            }
+            return deck;
+        }
+
+        public string Suit => suit;
+        public string Rank => rank;
+        public string Name => name;
     }
 }
 

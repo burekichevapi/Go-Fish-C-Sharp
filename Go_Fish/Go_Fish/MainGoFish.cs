@@ -10,29 +10,30 @@ namespace Go_Fish
     {
         static void Main(string[] args)
         {
-            Card[] deck = new Card[52]; //Creating 52 card deck.
-            int suit = 0;
-            int rank = 0;
-            int d = 0;
-            while (d < 52)  //Creating 52 card deck.
-            {
-                while (suit < 4)
-                {
-                    while (rank < 13)
-                    {
-                        deck[d] = new Card(suit, rank);
-                        d++;
-                        rank++;
-                    }
-                    rank = 0;
-                    suit++;
-                }
-            }
-
-            Player Amer = new Player("Amer");
-            Player Terry = new Player("Terry");
+            Card[] deck = Card.InitializeDeck();
+            bool winner = false;
+            int turn = 0;
+            Player Amer = new Player(name:"Amer");
+            Player Terry = new Player(name:"Terry");
             Amer.Draw9Cards(deck);
             Terry.Draw9Cards(deck);
+            while(!winner)
+            {
+                if(turn == 0)
+                {
+                    Amer.CheckIfZeroCards(deck);
+                    Amer.AskForRank();
+                    while(Amer.CheckIfOpponentHasRankInHand(Terry))
+                    {
+                        Terry.GiveCardTo(Amer);
+                        Terry.CheckIfZeroCards(deck);
+                        Amer.CheckIfZeroCards(deck);
+                        Amer.AskForRank();
+                    }
+                    { Amer.DrawCard(deck); }
+                }
+
+            }
 
             Console.ReadKey();
         }
