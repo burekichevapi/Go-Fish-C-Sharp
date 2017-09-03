@@ -18,29 +18,32 @@ namespace Go_Fish
             Player2.Draw9Cards(deck);
             while(Card.books > 0)
             {
-                Player1.CheckIfZeroCards(deck);
-                Player1.AskForRank();
-                while(Player1.CheckIfOpponentHasRankInHand(Player2))
+                while(turn == 0)
                 {
-                    Player2.GiveCardTo(Player1);
-                    if(Player1.CheckForBooks() != null) { Player1.DiscardBooks(); Player1.AddOneCounterForBooks(); }
-                    Player2.CheckIfZeroCards(deck);
                     Player1.CheckIfZeroCards(deck);
                     Player1.AskForRank();
+                    while(Player1.CheckIfOpponentHasRankInHand(Player2))
+                    {
+                        Player2.GiveCardTo(Player1);
+                        if(Player1.CheckForBooks() != null) { Player1.DiscardBooks(); Player1.AddOneCounterForBooks(); }
+                        Player2.CheckIfZeroCards(deck);
+                        Player1.CheckIfZeroCards(deck);
+                    }
+                    { Player1.DrawCard(deck); turn++; }
                 }
-                { Player1.DrawCard(deck); }
-
-                Player2.CheckIfZeroCards(deck);
-                Player2.AskForRank();
-                while(Player2.CheckIfOpponentHasRankInHand(Player1))
+                while(turn == 1)
                 {
-                    Player1.GiveCardTo(Player2);
-                    if(Player2.CheckForBooks() != null) { Player2.DiscardBooks(); Player2.AddOneCounterForBooks(); }
-                    Player2.CheckIfZeroCards(deck);
                     Player2.CheckIfZeroCards(deck);
                     Player2.AskForRank();
+                    while(Player2.CheckIfOpponentHasRankInHand(Player1))
+                    {
+                        Player1.GiveCardTo(Player2);
+                        if(Player2.CheckForBooks() != null) { Player2.DiscardBooks(); Player2.AddOneCounterForBooks(); }
+                        Player2.CheckIfZeroCards(deck);
+                        Player2.CheckIfZeroCards(deck);
+                    }
+                    { Player2.DrawCard(deck); turn = 0; }
                 }
-                { Player2.DrawCard(deck); }
             }
             Console.ReadKey();
         }

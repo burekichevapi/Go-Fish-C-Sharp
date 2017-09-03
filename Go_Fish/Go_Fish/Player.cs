@@ -22,10 +22,11 @@ namespace Go_Fish
         {    
             int drawCard = randCard.Next(deck.Length);  //Takes random card object and adds it to 'cardsInHand' List.
             cardsInHand.Add(deck[drawCard]);
-
+            Console.WriteLine($"{deck[drawCard].Name}");
             List<Card> deckList = deck.ToList();   //Converts deck into List and removes the same card object; converts back to Array.
             deckList.RemoveAt(drawCard);
             deckList.ToArray();
+            Console.WriteLine($"{this.name} drew 1 card.");
         }       //Adds a random card from deck to Player.cardsInHand and removes that same card from deck Array.
 
         public void Draw9Cards(Card[] deck)     //Draws 9 cards to start game.
@@ -40,7 +41,7 @@ namespace Go_Fish
 
         public string AskForRank()      //Takes input for which card rank the player is asking for and returns that value in a string.
         {
-            Console.Write("Write a rank: ");
+            Console.Write($"{this.name} Ask for a rank: ");
             return Console.ReadLine();
         }
 
@@ -50,8 +51,10 @@ namespace Go_Fish
             {
                 if (c.Rank == AskForRank())
                 {
+                    Console.WriteLine($"{opponent.name} has {c.Rank}.");
                     return true;
                 }
+                else { Console.WriteLine($"{opponent.name} does not have this rank."); return false; }
             }
             return false;
         }
@@ -64,6 +67,7 @@ namespace Go_Fish
                 {
                     this.cardsInHand.Remove(c);
                     player.cardsInHand.Add(c);
+                    Console.WriteLine($"{this.name} removed {c.Name} from hand and gave it to {player.name}.");
                 }
             }
         }
@@ -73,13 +77,15 @@ namespace Go_Fish
             if(deck.Length > 0 && this.cardsInHand.Count == 0)
             {
                 this.DrawCard(deck);
+                Console.WriteLine($"{this.name} has no cards in hand! draw 1 card.");
             }
         }
 
-        public void AddOneCounterForBooks()
+        public void AddOneCounterForBooks()       //Adds +1 to Books attribute.
         {
             this.books++;
-        }       //Adds +1 to Books attribute.
+            Console.WriteLine($"{this.name} Obtained 1 book!");
+        }
 
         public void DiscardBooks()      //Calls on CheckForBooks() and removes all 13 cards from cardsInHand of the same suit and --Card.books.
         {
@@ -87,6 +93,7 @@ namespace Go_Fish
             {
                 if(c.Suit == CheckForBooks()) { cardsInHand.Remove(c); Card.books--; }
             }
+            Console.WriteLine($"{this.name} discards.");
         }
 
         public string CheckForBooks()     //Loops through players cardInHand and counts the total number of each suit player has. 
