@@ -10,39 +10,76 @@ namespace Go_Fish
     {
         static void Main(string[] args)
         {
-            Card[] deck = Card.InitializeDeck();
+            List<Card> deck = Card.InitializeDeck();
             int turn = 0;
             Player Player1 = new Player(name:"Amer");
             Player Player2 = new Player(name:"Terry");
             Player1.Draw9Cards(deck);
             Player2.Draw9Cards(deck);
+
             while(Card.books > 0)
             {
                 while(turn == 0)
                 {
                     Player1.CheckIfZeroCards(deck);
-                    Player1.AskForRank();
-                    while(Player1.CheckIfOpponentHasRankInHand(Player2))
+                    Player2.CheckIfZeroCards(deck);
+                    string askForRank = Player1.AskForRank();
+                    if(Player1.CheckIfOpponentHasRankInHand(Player2, askForRank))
                     {
-                        Player2.GiveCardTo(Player1);
-                        if(Player1.CheckForBooks() != null) { Player1.DiscardBooks(); Player1.AddOneCounterForBooks(); }
-                        Player2.CheckIfZeroCards(deck);
+                        if(Player1.DiscardBooks())
+                        {
+                            Card.books--;
+                            Player1.AddOneCounterForBooks();
+                        }
                         Player1.CheckIfZeroCards(deck);
+                        Player2.GiveCardTo(Player1, askForRank);
+                        Player2.CheckIfZeroCards(deck);
+                        if(Player1.DiscardBooks())
+                        {
+                            Card.books--;
+                            Player1.AddOneCounterForBooks();
+                        }
+                        Player1.CheckIfZeroCards(deck);
+                        if(Player1.DiscardBooks())
+                        {
+                            Card.books--;
+                            Player1.AddOneCounterForBooks();
+                        }
+                        Player1.CheckIfZeroCards(deck);
+                        Player2.CheckIfZeroCards(deck);
                     }
-                    { Player1.DrawCard(deck); turn++; }
+                    else { Player1.DrawCard(deck); turn++; }
                 }
                 while(turn == 1)
                 {
                     Player2.CheckIfZeroCards(deck);
-                    Player2.AskForRank();
-                    while(Player2.CheckIfOpponentHasRankInHand(Player1))
+                    Player1.CheckIfZeroCards(deck);
+                    string askForRank = Player2.AskForRank();
+                    if(Player2.CheckIfOpponentHasRankInHand(Player1, askForRank))
                     {
-                        Player1.GiveCardTo(Player2);
-                        if(Player2.CheckForBooks() != null) { Player2.DiscardBooks(); Player2.AddOneCounterForBooks(); }
+                        if(Player2.DiscardBooks())
+                        {
+                            Card.books--;
+                            Player2.AddOneCounterForBooks();
+                        }
                         Player2.CheckIfZeroCards(deck);
+                        Player1.GiveCardTo(Player2, askForRank);
+                        Player1.CheckIfZeroCards(deck);
+                        if(Player2.DiscardBooks())
+                        {
+                            Card.books--;
+                            Player2.AddOneCounterForBooks();
+                        }
                         Player2.CheckIfZeroCards(deck);
+                        if(Player2.DiscardBooks())
+                        {
+                            Card.books--;
+                            Player2.AddOneCounterForBooks();
+                        }
+                        Player2.CheckIfZeroCards(deck);
+                        Player1.CheckIfZeroCards(deck);
                     }
-                    { Player2.DrawCard(deck); turn = 0; }
+                    else { Player2.DrawCard(deck); turn = 0; }
                 }
             }
             Console.ReadKey();

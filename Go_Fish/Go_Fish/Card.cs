@@ -65,9 +65,9 @@ namespace Go_Fish
                 return "King";
             }
         }
-        public static Card[] InitializeDeck()       //Returns a 52 card Array.
+        public static List<Card> InitializeDeck()       //Returns a 52 card Array.
         {
-            var deck = new Card[52];
+            var deck = new List<Card>();
             int suit = 0;
             int rank = 0;
             int d = 0;
@@ -77,7 +77,7 @@ namespace Go_Fish
                 {
                     while(rank < 13)
                     {
-                        deck[d] = new Card(suit, rank);
+                        deck.Add(new Card(suit, rank));
                         d++;
                         rank++;
                     }
@@ -93,4 +93,3 @@ namespace Go_Fish
         public string Name => name;
     }
 }
-
