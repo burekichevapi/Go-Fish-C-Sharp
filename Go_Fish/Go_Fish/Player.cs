@@ -11,7 +11,7 @@ namespace Go_Fish
         Random randCard = new Random();
         private string name;
         private List<Card> cardsInHand = new List<Card>();
-        private int books = 0;
+        private int books;
 
         public Player(string name)
         {
@@ -24,7 +24,7 @@ namespace Go_Fish
             {
                 int drawCard = randCard.Next(deck.Count);  //Takes random card object and adds it to 'cardsInHand' List.
                 this.cardsInHand.Add(deck[drawCard]);
-                Console.WriteLine($"{deck[drawCard].Name}");
+                //Console.WriteLine($"{deck[drawCard].Name}");
                 deck.RemoveAt(drawCard);
                 Console.WriteLine($"{this.name} drew 1 card.");
             }
@@ -139,14 +139,22 @@ namespace Go_Fish
         public void AddOneCounterForBooks()       //Adds +1 to Books attribute.
         {
             this.books++;
-            Console.WriteLine($"{this.name} Obtained 1 book!");
+            Console.WriteLine($"{this.name} Obtained 1 book! {this.name} has a total of {this.books} books.");
         }
 
         public bool DiscardBooks()      //Calls on CheckForBooks() and removes all 13 cards from cardsInHand of the same suit and --Card.books.
         {
-            foreach(Card c in this.CardsInHand)
+            string discardThisSuit = CheckForBooks();
+            if(discardThisSuit != null)
             {
-                if(CheckForBooks() != null) { cardsInHand.Remove(c); Console.WriteLine($"{this.name} discards {c.Suit}."); return true; }
+                foreach(Card c in this.cardsInHand.ToList())
+                {
+                    if(string.Compare(discardThisSuit, c.Suit) == 0)
+                    {
+                        cardsInHand.Remove(c);
+                    }
+                }
+                return true;
             }
             return false;
         }
