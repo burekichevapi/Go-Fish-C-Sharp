@@ -26,13 +26,9 @@ namespace Go_Fish
                     string askForRank = Player1.AskForRank();
                     if(Player1.CheckIfOpponentHasRankInHand(Player2, askForRank))
                     {
-                        if(Player1.DiscardBooks())
-                        {
-                            Card.books--;
-                            Player1.AddOneCounterForBooks();
-                        }
                         Player1.CheckIfZeroCards(deck);
                         Player2.GiveCardTo(Player1, askForRank);
+                        Player1.CheckIfZeroCards(deck);
                         Player2.CheckIfZeroCards(deck);
                         if(Player1.DiscardBooks())
                         {
@@ -40,13 +36,6 @@ namespace Go_Fish
                             Player1.AddOneCounterForBooks();
                         }
                         Player1.CheckIfZeroCards(deck);
-                        if(Player1.DiscardBooks())
-                        {
-                            Card.books--;
-                            Player1.AddOneCounterForBooks();
-                        }
-                        Player1.CheckIfZeroCards(deck);
-                        Player2.CheckIfZeroCards(deck);
                     }
                     else { Player1.DrawCard(deck); turn++; }
                 }
@@ -57,19 +46,9 @@ namespace Go_Fish
                     string askForRank = Player2.AskForRank();
                     if(Player2.CheckIfOpponentHasRankInHand(Player1, askForRank))
                     {
-                        if(Player2.DiscardBooks())
-                        {
-                            Card.books--;
-                            Player2.AddOneCounterForBooks();
-                        }
                         Player2.CheckIfZeroCards(deck);
                         Player1.GiveCardTo(Player2, askForRank);
                         Player1.CheckIfZeroCards(deck);
-                        if(Player2.DiscardBooks())
-                        {
-                            Card.books--;
-                            Player2.AddOneCounterForBooks();
-                        }
                         Player2.CheckIfZeroCards(deck);
                         if(Player2.DiscardBooks())
                         {
@@ -77,7 +56,6 @@ namespace Go_Fish
                             Player2.AddOneCounterForBooks();
                         }
                         Player2.CheckIfZeroCards(deck);
-                        Player1.CheckIfZeroCards(deck);
                     }
                     else { Player2.DrawCard(deck); turn = 0; }
                 }

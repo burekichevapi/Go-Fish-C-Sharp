@@ -19,12 +19,16 @@ namespace Go_Fish
         }       //Player Constructor
 
         public void DrawCard(List<Card> deck)
-        {    
-            int drawCard = randCard.Next(deck.Count);  //Takes random card object and adds it to 'cardsInHand' List.
-            this.cardsInHand.Add(deck[drawCard]);
-            Console.WriteLine($"{deck[drawCard].Name}");
-            deck.RemoveAt(drawCard);
-            Console.WriteLine($"{this.name} drew 1 card.");
+        {
+            if(deck.Count > 0)
+            {
+                int drawCard = randCard.Next(deck.Count);  //Takes random card object and adds it to 'cardsInHand' List.
+                this.cardsInHand.Add(deck[drawCard]);
+                Console.WriteLine($"{deck[drawCard].Name}");
+                deck.RemoveAt(drawCard);
+                Console.WriteLine($"{this.name} drew 1 card.");
+            }
+            else { Console.WriteLine("No more cards in deck!"); }
         }       //Adds a random card from deck to Player.cardsInHand and removes that same card from deck Array.
 
         public void Draw9Cards(List<Card> deck)     //Draws 9 cards to start game.
@@ -34,39 +38,32 @@ namespace Go_Fish
         }
         public string AskForRank()      //Takes input for which card rank the player is asking for and returns that value in a string.
         {
-            try
+            //How to throw custom exception???
+            Console.Write($"{this.name} Ask for a rank (Ace - 10, Jack, Queen, or King)... To see your hand type 'Hand': ");
+            string input = Console.ReadLine().Trim();
+            int totalLetters = input.Length;
+            char firstLetter = char.ToUpper(input[0]);
+            string restOfLetters = null;
+            for(int i = 1; i < totalLetters; i++) { restOfLetters += char.ToLower(input[i]); }
+            input = firstLetter.ToString() + restOfLetters;
+            while(input == "Hand")
             {
-                Console.Write($"{this.name} Ask for a rank (Ace - 10, Jack, Queen, or King)... To see your hand type 'Hand': ");
-                string input = Console.ReadLine().Trim();
-                int totalLetters = input.Length;
-                char firstLetter = char.ToUpper(input[0]);
-                string restOfLetters = null;
-                for(int i = 1; i < totalLetters; i++) { restOfLetters += char.ToLower(input[i]); }
-                input = firstLetter.ToString() + restOfLetters;
-                while(input == "Hand")
+                Console.WriteLine($"\nYou have: ");
+                foreach(Card c in this.CardsInHand)
                 {
-                    Console.WriteLine($"\nYou have: ");
-                    foreach(Card c in this.CardsInHand)
-                    {
-                        Console.WriteLine($"The {c.Name} ");
-                    }
-                    Console.Write($"{this.name} Ask for a rank (Ace - 10, Jack, Queen, or King)... To see your hand type 'Hand': ");
-                    input = Console.ReadLine().Trim();
-                    totalLetters = input.Length;
-                    firstLetter = char.ToUpper(input[0]);
-                    restOfLetters = null;
-                    for(int i = 1; i < totalLetters; i++) { restOfLetters += char.ToLower(input[i]); }
-                    input = firstLetter.ToString() + restOfLetters;
+                    Console.WriteLine($"The {c.Name} ");
                 }
+                Console.Write($"{this.name} Ask for a rank (Ace - 10, Jack, Queen, or King)... To see your hand type 'Hand': ");
+                input = Console.ReadLine().Trim();
+                totalLetters = input.Length;
+                firstLetter = char.ToUpper(input[0]);
                 restOfLetters = null;
                 for(int i = 1; i < totalLetters; i++) { restOfLetters += char.ToLower(input[i]); }
-                //How to throw custom exception???
-                return input;
+                input = firstLetter.ToString() + restOfLetters;
             }
-            catch
-            {
-                throw new ArgumentOutOfRangeException("You must pick Ace, 2 - 10, Jack, Queen, or King as a rank.");
-            }
+            restOfLetters = null;
+            for(int i = 1; i < totalLetters; i++) { restOfLetters += char.ToLower(input[i]); }
+            return input;
         }
         public bool CheckIfOpponentHasRankInHand(Player opponent, string askForRank )   //Tests if opponent has AskForRank() card in hand Returns true or false.
         {
@@ -149,7 +146,7 @@ namespace Go_Fish
         {
             foreach(Card c in this.CardsInHand)
             {
-                if(CheckForBooks() != null) { cardsInHand.Remove(c); Console.WriteLine($"{this.name} discards {c.Name}."); return true; }
+                if(CheckForBooks() != null) { cardsInHand.Remove(c); Console.WriteLine($"{this.name} discards {c.Suit}."); return true; }
             }
             return false;
         }
