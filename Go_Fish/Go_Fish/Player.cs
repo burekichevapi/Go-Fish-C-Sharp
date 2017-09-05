@@ -11,7 +11,7 @@ namespace Go_Fish
         Random randCard = new Random();
         private string name;
         private List<Card> cardsInHand = new List<Card>();
-        int books = 0;
+        private int books = 0;
 
         public Player(string name)
         {
@@ -180,6 +180,8 @@ namespace Go_Fish
         }
 
         private List<Card> CardsInHand => cardsInHand;
+        public int Books => books;
+        public string Name => name;
     }
 
 }

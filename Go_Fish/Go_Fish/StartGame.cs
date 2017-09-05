@@ -82,6 +82,9 @@ namespace Go_Fish
                     else { Player2.DrawCard(deck); turn = 0; }
                 }
             }
+            if(Player1.Books > Player2.Books) { Console.WriteLine($"{Player1.Name} wins with {Player1.Books} Books!"); }
+            else if(Player1.Books > Player2.Books) { Console.WriteLine($"{Player2.Name} wins with {Player2.Books} Books!"); }
+            else { Console.WriteLine($"We have a draw."); }
             Console.ReadKey();
         }
     }
