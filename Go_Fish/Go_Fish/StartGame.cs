@@ -41,7 +41,7 @@ namespace Go_Fish
                         }
                         Player1.CheckIfZeroCards(deck);
                     }
-                    else { Player1.DrawCard(deck); turn++; Console.Clear(); }
+                    else { Player1.DrawCard(deck); turn++; Console.Clear(); Console.WriteLine($"{Player2.Name}'s turn."); }
                 }
                 while(turn == 1)
                 {
@@ -65,7 +65,7 @@ namespace Go_Fish
                         }
                         Player2.CheckIfZeroCards(deck);
                     }
-                    else { Player2.DrawCard(deck); turn = 0; Console.Clear(); }
+                    else { Player2.DrawCard(deck); turn = 0; Console.Clear(); Console.WriteLine($"{Player1.Name}'s turn."); }
                 }
             }
             if(Player1.Books > Player2.Books) { Console.WriteLine($"{Player1.Name} wins with {Player1.Books} Books!"); }
