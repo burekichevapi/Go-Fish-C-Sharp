@@ -12,8 +12,8 @@ namespace Go_Fish
         {
             List<Card> deck = Card.InitializeDeck();
             int turn = 0;
-            Player Player1 = new Player(name:"Amer");
-            Player Player2 = new Player(name:"Terry");
+            Player Player1 = new Player(name:"Player 1");
+            Player Player2 = new Player(name:"Player 2");
             Player1.Draw9Cards(deck);
             Player2.Draw9Cards(deck);
 
