@@ -38,32 +38,49 @@ namespace Go_Fish
         }
         public string AskForRank()      //Takes input for which card rank the player is asking for and returns that value in a string.
         {
-            //How to throw custom exception???
-            Console.Write($"{this.name} Ask for a rank (Ace - 10, Jack, Queen, or King)... To see your hand type 'Hand': ");
-            string input = Console.ReadLine().Trim();
-            int totalLetters = input.Length;
-            char firstLetter = char.ToUpper(input[0]);
-            string restOfLetters = null;
-            for(int i = 1; i < totalLetters; i++) { restOfLetters += char.ToLower(input[i]); }
-            input = firstLetter.ToString() + restOfLetters;
-            while(input == "Hand")
+            try
             {
-                Console.WriteLine($"\nYou have: ");
-                foreach(Card c in this.CardsInHand)
-                {
-                    Console.WriteLine($"The {c.Name} ");
-                }
                 Console.Write($"{this.name} Ask for a rank (Ace - 10, Jack, Queen, or King)... To see your hand type 'Hand': ");
-                input = Console.ReadLine().Trim();
-                totalLetters = input.Length;
-                firstLetter = char.ToUpper(input[0]);
-                restOfLetters = null;
+                string input = Console.ReadLine().Trim();
+                int totalLetters = input.Length;
+                char firstLetter = char.ToUpper(input[0]);
+                string restOfLetters = null;
                 for(int i = 1; i < totalLetters; i++) { restOfLetters += char.ToLower(input[i]); }
                 input = firstLetter.ToString() + restOfLetters;
+                string[] AcceptableUserInput = new string[] { "Ace,", "2", "3", "4", "5", "6", "7", "8", "9", "10", "Jack", "Queen", "King", "Hand" };
+                if(!AcceptableUserInput.Contains(input) || input == null)
+                {
+                    throw new UserInputException();
+                }
+                while(input == "Hand")
+                {
+                    Console.WriteLine($"\nYou have: ");
+                    foreach(Card c in this.CardsInHand)
+                    {
+                        Console.WriteLine($"The {c.Name} ");
+                    }
+                    Console.Write($"{this.name} Ask for a rank (Ace - 10, Jack, Queen, or King)... To see your hand type 'Hand': ");
+                    input = Console.ReadLine().Trim();
+                    totalLetters = input.Length;
+                    firstLetter = char.ToUpper(input[0]);
+                    restOfLetters = null;
+                    for(int i = 1; i < totalLetters; i++) { restOfLetters += char.ToLower(input[i]); }
+                    input = firstLetter.ToString() + restOfLetters;
+                }
+                restOfLetters = null;
+                for(int i = 1; i < totalLetters; i++) { restOfLetters += char.ToLower(input[i]); }
+                return input;
             }
-            restOfLetters = null;
-            for(int i = 1; i < totalLetters; i++) { restOfLetters += char.ToLower(input[i]); }
-            return input;
+            catch(UserInputException xx)
+            {
+                Console.WriteLine(xx.Message);
+                return null;
+            }
+            catch(IndexOutOfRangeException)
+            {
+                Console.WriteLine("You must enter one a card rank between Ace - King.");
+                return null;
+            }
         }
         public bool CheckIfOpponentHasRankInHand(Player opponent, string askForRank )   //Tests if opponent has AskForRank() card in hand Returns true or false.
         {

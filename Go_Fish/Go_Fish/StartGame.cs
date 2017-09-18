@@ -24,6 +24,10 @@ namespace Go_Fish
                     Player1.CheckIfZeroCards(deck);
                     Player2.CheckIfZeroCards(deck);
                     string askForRank = Player1.AskForRank();
+                    while(askForRank == null)
+                    {
+                        askForRank = Player1.AskForRank();
+                    }
                     if(Player1.CheckIfOpponentHasRankInHand(Player2, askForRank))
                     {
                         Player1.CheckIfZeroCards(deck);
@@ -41,13 +45,17 @@ namespace Go_Fish
                         }
                         Player1.CheckIfZeroCards(deck);
                     }
-                    else { Player1.DrawCard(deck); turn++; Console.Clear(); Console.WriteLine($"{Player2.Name}'s turn."); }
+                    else { Player1.DrawCard(deck); turn++; Console.WriteLine("Your turn is over, please press any key to pass the turn..."); Console.ReadKey(); Console.Clear(); Console.WriteLine($"{Player2.Name}'s turn."); }
                 }
                 while(turn == 1)
                 {
                     Player2.CheckIfZeroCards(deck);
                     Player1.CheckIfZeroCards(deck);
                     string askForRank = Player2.AskForRank();
+                    while(askForRank == null)
+                    {
+                        askForRank = Player2.AskForRank();
+                    }
                     if(Player2.CheckIfOpponentHasRankInHand(Player1, askForRank))
                     {
                         Player2.CheckIfZeroCards(deck);
@@ -65,7 +73,7 @@ namespace Go_Fish
                         }
                         Player2.CheckIfZeroCards(deck);
                     }
-                    else { Player2.DrawCard(deck); turn = 0; Console.Clear(); Console.WriteLine($"{Player1.Name}'s turn."); }
+                    else { Player2.DrawCard(deck); turn = 0; Console.WriteLine("Your turn is over, please press any key to pass the turn..."); Console.ReadKey(); Console.Clear(); Console.WriteLine($"{Player1.Name}'s turn."); }
                 }
             }
             if(Player1.Books > Player2.Books) { Console.WriteLine($"{Player1.Name} wins with {Player1.Books} Books!"); }

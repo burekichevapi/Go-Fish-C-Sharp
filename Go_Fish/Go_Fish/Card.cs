@@ -33,7 +33,7 @@ namespace Go_Fish
                     return "Clubs";
             }
         }
-        private string SetRank( int rank )        //Sets all ranks for cards.
+        private string SetRank( int rank )        //Sets all ranks for cards..... Should of made a 2D array.
         {
             switch(rank)
             {
