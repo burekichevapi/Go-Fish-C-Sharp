@@ -8,9 +8,6 @@ namespace Go_Fish
 {
     class UserInputException : Exception
     {
-        public UserInputException() : base("You must enter one a card rank between Ace - King.")
-        {
-
-        }
+        public UserInputException() : base("You must enter one a card rank between Ace - King."){}
     }
 }
