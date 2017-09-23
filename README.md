@@ -9,4 +9,4 @@ A game of Go fish between two players in C#
   - If the questioned player does not have cards of the specified rank, the requesting player 
     draws a card from the deck.
 - The game ends when the deck is empty. Whichever player completed the most books 
-  of cards is declarde the winner.
+  of cards is declared the winner.
